@@ -8,7 +8,7 @@ object TaskTwo {
   private def intersectionSearchCount(knownCharSet: Set[Char], word: Word): Int =
     (word.toSet & knownCharSet).size
 
-  private def convertSegmentToNumber(four: Set[Char], seven: Set[Char])(word: Word): Int = {
+  private def convertSegmentToNumber(four: Set[Char], seven: Set[Char])(word: Word): Int =
     (word.length, intersectionSearchCount(four, word), intersectionSearchCount(seven, word)) match {
       case (Zero, 3, 3)  => 0
       case (One, _, _)   => 1
@@ -21,7 +21,6 @@ object TaskTwo {
       case (Eight, _, _) => 8
       case (Nine, 4, 3)  => 9
     }
-  }
 
   private def uniqueSetOfCharsBySize(inputString: List[Word], length: Int): Set[Char] =
     inputString.find(_.length == length).toSet.flatten
@@ -33,7 +32,7 @@ object TaskTwo {
     rightSide.map(convertSegmentToNumber(four, seven)).foldLeft(0)(_ * 10 + _)
   }
 
-  private val calculate: List[Line] => Int = _.map(calculateCodeSum).sum
+  private val calculate = (_: List[Line]).map(calculateCodeSum).sum
 
   def main(args: Array[String]): Unit = println(calculate(readAndTraverseFile("/input.txt")))
 }
