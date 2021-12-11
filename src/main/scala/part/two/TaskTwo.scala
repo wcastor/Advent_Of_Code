@@ -1,6 +1,7 @@
 package part.two
 
 import util.AOCUtil._
+import util.NumberOfSegments._
 
 object TaskTwo {
 
@@ -8,7 +9,6 @@ object TaskTwo {
     (word.toSet & knownCharSet).size
 
   private def convertSegmentToNumber(four: Set[Char], seven: Set[Char])(word: Word): Int = {
-    import util.NumberOfSegments._
     (word.length, intersectionSearchCount(four, word), intersectionSearchCount(seven, word)) match {
       case (Zero, 3, 3)  => 0
       case (One, _, _)   => 1
@@ -28,8 +28,8 @@ object TaskTwo {
 
   private val calculateCodeSum = (inputString: Line) => {
     val (leftSide, rightSide) = getBothSides(inputString)
-    val four                  = uniqueSetOfCharsBySize(leftSide, 4)
-    val seven                 = uniqueSetOfCharsBySize(leftSide, 3)
+    val four                  = uniqueSetOfCharsBySize(leftSide, Four)
+    val seven                 = uniqueSetOfCharsBySize(leftSide, Seven)
     rightSide.map(convertSegmentToNumber(four, seven)).foldLeft(0)(_ * 10 + _)
   }
 
