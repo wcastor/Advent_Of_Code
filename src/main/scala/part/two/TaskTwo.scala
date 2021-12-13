@@ -20,6 +20,7 @@ object TaskTwo {
       case (Seven, _, _) => 7
       case (Eight, _, _) => 8
       case (Nine, 4, 3)  => 9
+      case _             => -1
     }
 
   private def uniqueSetOfCharsBySize(inputString: List[Word], length: Int): Set[Char] =
@@ -29,7 +30,8 @@ object TaskTwo {
     val (leftSide, rightSide) = getBothSides(inputString)
     val four                  = uniqueSetOfCharsBySize(leftSide, Four)
     val seven                 = uniqueSetOfCharsBySize(leftSide, Seven)
-    rightSide.map(convertSegmentToNumber(four, seven)).foldLeft(0)(_ * 10 + _)
+    val semiResult            = rightSide.map(convertSegmentToNumber(four, seven))
+    semiResult.find(_ == -1).map(_ => 0).getOrElse(semiResult.foldLeft(0)(_ * 10 + _))
   }
 
   private val calculate = (_: List[Line]).map(calculateCodeSum).sum
